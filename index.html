@@ -30,11 +30,17 @@
    </div>
   </div>
 <script>
-    var li=document.getElementsByTagName("li");
-    console.log(li)
-    console.log(li)
-    li[1].textContent="hello"
-    li[1].Style.backgroundcolor="green"
+//    var li=document.getElementsByTagName("li");
+//    console.log(li)
+//    console.log(li)
+//    li[1].textContent="hello"
+//    li[1].Style.backgroundcolor="green"
+    var item = document.querySelector(".list-group-item");
+    var secitem=document.querySelector(".list-group-item:nth-child(2)");
+    secitem.style.color="green"
+    var thiritem=document.querySelector(".list-group-item:nth-child(3)");
+    thiritem.style.color="green"
+
 </script>
 </body>
 </html>
