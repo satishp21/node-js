@@ -24,7 +24,7 @@
     <ul id="items" class="list-group-item" >
       <li class="list-group-item" >Item 1</li>
       <li class="list-group-item">Item 2</li>
-      <li style="background-color: green;" class="list-group-item">Item 3</li>
+      <li class="list-group-item">Item 3</li>
       <li class="list-group-item">Item 4</li>
     </ul>
    </div>
@@ -35,11 +35,49 @@
 //    console.log(li)
 //    li[1].textContent="hello"
 //    li[1].Style.backgroundcolor="green"
-    var item = document.querySelector(".list-group-item");
-    var secitem=document.querySelector(".list-group-item:nth-child(2)");
-    secitem.style.color="green"
-    var thiritem=document.querySelector(".list-group-item:nth-child(3)");
-    thiritem.style.color="green"
+   // var item = document.querySelector(".list-group-item");
+   // var secitem=document.querySelector(".list-group-item:nth-child(2)");
+    //secitem.style.color="green"
+    //var thiritem=document.querySelector(".list-group-item:nth-child(3)");
+    //thiritem.style.color="green"
+
+    //var lists = document.querySelectorAll(".list-group-item:nth-child(1)")
+    //console.log(lists)
+    //lists.style.color="green"
+    //transversing the DOM
+    var itemList = document.querySelector('#items')
+    //console.log(itemList.parentNode);
+    //itemList.parentNode.style.background="grey"
+
+    //child nodes
+    //console.log(itemList.childNodes);
+    //console.log(itemList.children);
+    //console.log(itemList.children[1]);
+    //itemList.children[1].style.backgroundColor="yellow"
+    //firstchild
+    //console.log(itemList.firstElementChild);
+    //itemList.firstElementChild.text="hello 1";
+
+    //lastchild
+    // console.log(itemList.lastchild);
+    //lastElimentchild
+    // console.log(itemList.lastElementchild);
+    // itemList.lastElementChild.textcontent="hello 4";
+
+    var newDiv = document.createElement('div')
+    newDiv.className='hello'
+    newDiv.id='hello1';
+    newDiv.setAttribute('title','Hello Div');
+
+    var newDivText = document.createTextNode('hello world');
+    newDiv.appendChild(newDivText);
+    
+    var container = document.querySelector('header .container');
+    var h1 = document.querySelector('header h1')
+    container.insertBefore(newDiv,h1);  
+    newDiv.style.fontSize='30px'
+    
+
 
 </script>
 </body>
