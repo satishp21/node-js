@@ -15,6 +15,8 @@
         <label>phonenumber</label>
         <input type ="number" name="phonenumber" required>
         <input type="submit" name ="submit">
+        <ul id ="listofitems">
+        </ul>
     </form>
 
     <script>
@@ -24,17 +26,29 @@
             const email=event.target.emailId.value;
             const phonenumber=event.target.phonenumber.value;
 
-            localStorage.setItem("name",name);
-            localStorage.setItem("email",email);
-            localStorage.setItem("phonenumber",phonenumber);
+//            localStorage.setItem("name",name);
+//            localStorage.setItem("email",email);
+//            localStorage.setItem("phonenumber",phonenumber);
         //storing details in single line in local storage 
             const obj={
                 name,
                 email,
                 phonenumber
             }
-            localStorage.setItem("userdetails",JSON.stringify(obj))
+        //    localStorage.setItem("userdetails",JSON.stringify(obj))
+        
+        //storing details of multiple users
+        localStorage.setItem(obj.email,JSON.stringify(obj))
+        showuseronscreen(obj)
         }
+        
+        function showuseronscreen(obj){
+           const parenteliment=document.getElementById("listofitems") 
+           const childelem=document.createElement("li")
+           childelem.textContent=obj.name+"-"+obj.email+"-"+obj.phonenumber
+           parenteliment.appendChild(childelem)
+        }
+        
     </script>
 </body>
 </html>
