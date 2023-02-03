@@ -27,6 +27,13 @@
             localStorage.setItem("name",name);
             localStorage.setItem("email",email);
             localStorage.setItem("phonenumber",phonenumber);
+        //storing details in single line in local storage 
+            const obj={
+                name,
+                email,
+                phonenumber
+            }
+            localStorage.setItem("userdetails",JSON.stringify(obj))
         }
     </script>
 </body>
