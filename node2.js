@@ -15,14 +15,18 @@ function addItem(e){
 
   // Get input value
   var newItem = document.getElementById('item').value;
+  var newdescription = document.getElementById('description').value;
 
   // Create new li element
   var li = document.createElement('li');
   // Add class
   li.className = 'list-group-item';
   // Add text node with input value
-  li.appendChild(document.createTextNode(newItem));
-
+  var newTExt = document.createTextNode(newItem);
+  var desC = document.createTextNode(newdescription);
+  
+  li.appendChild(newTExt);
+  li.appendChild(desC);
   // Create del button element
   var deleteBtn = document.createElement('button');
 
@@ -57,20 +61,23 @@ function filterItems(e){
   // Convert to an array
   Array.from(items).forEach(function(item){
     var itemName = item.firstChild.textContent;
-    if(itemName.toLowerCase().indexOf(text) != -1){
+    var desC= item.childNodes[1].textContent
+    if(itemName.toLowerCase().indexOf(text) != -1 || desC.toLowerCase().indexOf(text) != -1 ){
       item.style.display = 'block';
     } else {
       item.style.display = 'none';
     }
+
+
   });
 }
-// var newbutton = document.createElement('"list-group"')
-// newDiv.className='e'
-// newDiv.id='hello1';
-// newDiv.setAttribute('title','Hello Div');
-
-// var newDivText = document.createTextNode('hello world');
-// newDiv.appendChild(newDivText);
+var itemList = document.querySelector('#items')
+var newbutton = document.createElement('"list-group"')
+newbutton.className='e'
+newbutton.id='hello1';
+newbutton.setAttribute('title','Hello Div');
+var newbuttonText = document.createTextNode('hello world');
+newbutton.appendChild(newbuttonText);
 
 // var container = document.querySelector('header .container');
 // var h1 = document.querySelector('header h1')
