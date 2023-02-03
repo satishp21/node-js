@@ -46,7 +46,18 @@
            const parenteliment=document.getElementById("listofitems") 
            const childelem=document.createElement("li")
            childelem.textContent=obj.name+"-"+obj.email+"-"+obj.phonenumber
-           parenteliment.appendChild(childelem)
+
+        // creating delete button which deletes data from screen as well as local storage.  
+
+            const deletebutton=document.createElement("input")
+            deletebutton.type="button"
+            deletebutton.value="Delete"
+            deletebutton.onclick = () => {
+                localStorage.removeItem(obj.email)
+                parenteliment.removeChild(childelem)
+            }
+            childelem.appendChild(deletebutton)
+            parenteliment.appendChild(childelem)
         }
         
     </script>
