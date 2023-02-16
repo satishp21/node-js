@@ -67,8 +67,7 @@ function filterItems(e){
     } else {
       item.style.display = 'none';
     }
-
-
+    
   });
 }
 var itemList = document.querySelector('#items')
