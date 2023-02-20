@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,15 +23,16 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script> <!-- for backend activity -->
     <script>
+        //showuseronscreen()
         function saveToLocalStorage(event){
             event.preventDefault();
             const name=event.target.username.value;
             const email=event.target.emailId.value;
             const phonenumber=event.target.phonenumber.value;
 
-//            localStorage.setItem("name",name);
-//            localStorage.setItem("email",email);
-//            localStorage.setItem("phonenumber",phonenumber);
+            /*localStorage.setItem("name",name);
+            localStorage.setItem("email",email);
+            localStorage.setItem("phonenumber",phonenumber);*/
         //storing details in single line in local storage 
             const obj={
                 name,
@@ -37,19 +40,20 @@
                 phonenumber
             }
             //for backend activity
-            axios.post("https://crudcrud.com/api/a8b882181955493281cd45bf937a3f5f/appointmentdata", obj)
+            /*axios.post("https://crudcrud.com/api/a8b882181955493281cd45bf937a3f5f/appointmentdata", obj)
             .then((response) => {
                 console.log(response)
             })
             .catch((err) =>{
                 console.log(err)
-            })
-        //    localStorage.setItem("userdetails",JSON.stringify(obj))
+            })*/
+            //localStorage.setItem("userdetails",JSON.stringify(obj))
         
         //storing details of multiple users
         localStorage.setItem(obj.email,JSON.stringify(obj))
         showuseronscreen(obj)
         }
+
         
         function showuseronscreen(obj){
            const parenteliment=document.getElementById("listofitems") 
@@ -84,4 +88,3 @@
 
     </script>
 </body>
-</html>
