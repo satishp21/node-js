@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="saveToLocalStorage(event)">
+        <label>Choose Price</label>
+        <input type ="number" name="price" id ="priceTag" required>
+        <label>Choose Dish</label>
+        <input type ="text" name="dish" id="dishTag" required>
+        <label>Choose a Table</label>
+        <select name ="table" id="tableID" >
+            <option value="Table1">Table 1</option>
+            <option value="Table2">Table 2</option>
+            <option value="Table3">Table 3</option>
+            <option value="Table4">Table 4</option>
+        </select>
+        <input type="submit" name ="submit" value="Add to bill">
+        <h1>Orders</h1>
+        <h2>Table 1</h2>
+        <ul id ="listofitems1">
+        </ul>
+        <h2>Table 2</h2>
+        <ul id ="listofitems2">
+        </ul>
+        <h2>Table 3</h2>
+        <ul id ="listofitems3">
+        </ul>
+        <!-- <ul id ="listofitems">
+        </ul> -->
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const price=event.target.price.value;
+            const dish=event.target.dish.value;
+            const table=event.target.table.value;
+
+            const obj={
+                price,
+                dish,
+                table
+            }
+
+            axios.post("https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData",obj)
+                .then((response) => {
+                    showuseronscreen(response.data)
+                    console.log(response)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+      
+        //storing details of multiple users
+        //localStorage.setItem(obj.email,JSON.stringify(obj)) comment out to use backebd server crud drud to call data insteart ogf local storage
+        //showuseronscreen(obj)
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+            axios.get("https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData")
+                .then((response) =>{
+                    console.log(response)
+                    for(var i=0; i< response.data.length; i++){
+                        showuseronscreen(response.data[i])
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+            //const localStorageobj = localStorage;
+            //const localStoragekeys = Object.keys(localStorageobj)
+        })
+        
+        function showuseronscreen(obj){
+            //if (obj.table==Table1){
+                const parenteliment=document.getElementById("listofitems1")
+                const childelem = document.createElement("li")
+                childelem.textContent = obj.price + "-" + obj.dish + "-" + obj.table
+            //}
+
+
+           
+           //parenteliment.innerHTML = parenteliment.innerHTML + `<li>${obj.name} - ${obj.email} - ${obj.phonenumber}</li>`
+
+        // creating delete button which deletes data from screen as well as local storage.  
+
+            const deletebutton=document.createElement("input")
+            deletebutton.type="button"
+            deletebutton.value="Delete Order"
+            deletebutton.onclick = () => {
+                parenteliment.removeChild(childelem)
+                axios.delete(`https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData/${obj._id}`)
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
+        
+        //creating edit button just after delete button
+            /*const editbutton=document.createElement("input")
+            editbutton.type="button"
+            editbutton.value="Edit"
+            editbutton.onclick = () => {
+                localStorage.removeItem(obj.email)
+                parenteliment.removeChild(childelem)
+                document.getElementById('usernameInputTag').value=obj.name
+                document.getElementById('emailInputTag').value=obj.email
+                document.getElementById('phonenumberInputTag').value=obj.phonenumber
+                axios.delete(`https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData/${obj._id}`)
+                    .catch((error) => {
+                        console.log(error)
+                    })
+
+            }*/
+            childelem.appendChild(deletebutton)
+            parenteliment.appendChild(childelem)
+        }
+
+    </script>
+</body>
+</html>
