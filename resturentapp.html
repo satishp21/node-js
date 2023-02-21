@@ -46,7 +46,6 @@
                 dish,
                 table
             }
-
             axios.post("https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData",obj)
                 .then((response) => {
                     showuseronscreen(response.data)
@@ -55,10 +54,6 @@
                 .catch((error) => {
                     console.log(error)
                 })
-      
-        //storing details of multiple users
-        //localStorage.setItem(obj.email,JSON.stringify(obj)) comment out to use backebd server crud drud to call data insteart ogf local storage
-        //showuseronscreen(obj)
         }
         window.addEventListener("DOMContentLoaded", () => {
             axios.get("https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData")
@@ -71,55 +66,61 @@
                 .catch((err) => {
                     console.log(err)
                 })
-
-            //const localStorageobj = localStorage;
-            //const localStoragekeys = Object.keys(localStorageobj)
         })
         
         function showuseronscreen(obj){
-            //if (obj.table==Table1){
+            if (obj.table==='Table1'){
+                const deletebutton=document.createElement("input")
+                deletebutton.type="button"
+                deletebutton.value="Delete Order"
+                deletebutton.onclick = () => {
+                    parenteliment.removeChild(childelem)
+                    axios.delete(`https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData/${obj._id}`)
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                }
                 const parenteliment=document.getElementById("listofitems1")
                 const childelem = document.createElement("li")
                 childelem.textContent = obj.price + "-" + obj.dish + "-" + obj.table
-            //}
-
-
-           
-           //parenteliment.innerHTML = parenteliment.innerHTML + `<li>${obj.name} - ${obj.email} - ${obj.phonenumber}</li>`
-
-        // creating delete button which deletes data from screen as well as local storage.  
-
-            const deletebutton=document.createElement("input")
-            deletebutton.type="button"
-            deletebutton.value="Delete Order"
-            deletebutton.onclick = () => {
-                parenteliment.removeChild(childelem)
-                axios.delete(`https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData/${obj._id}`)
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                childelem.appendChild(deletebutton)
+                parenteliment.appendChild(childelem)
             }
-        
-        //creating edit button just after delete button
-            /*const editbutton=document.createElement("input")
-            editbutton.type="button"
-            editbutton.value="Edit"
-            editbutton.onclick = () => {
-                localStorage.removeItem(obj.email)
-                parenteliment.removeChild(childelem)
-                document.getElementById('usernameInputTag').value=obj.name
-                document.getElementById('emailInputTag').value=obj.email
-                document.getElementById('phonenumberInputTag').value=obj.phonenumber
-                axios.delete(`https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData/${obj._id}`)
-                    .catch((error) => {
-                        console.log(error)
-                    })
-
-            }*/
-            childelem.appendChild(deletebutton)
-            parenteliment.appendChild(childelem)
+            else if (obj.table==='Table2'){
+                const deletebutton=document.createElement("input")
+                deletebutton.type="button"
+                deletebutton.value="Delete Order"
+                deletebutton.onclick = () => {
+                    parenteliment.removeChild(childelem)
+                    axios.delete(`https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData/${obj._id}`)
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                }
+                const parenteliment=document.getElementById("listofitems2")
+                const childelem = document.createElement("li")
+                childelem.textContent = obj.price + "-" + obj.dish + "-" + obj.table
+                childelem.appendChild(deletebutton)
+                parenteliment.appendChild(childelem)
+            }
+            else if (obj.table==='Table3'){
+                const deletebutton=document.createElement("input")
+                deletebutton.type="button"
+                deletebutton.value="Delete Order"
+                deletebutton.onclick = () => {
+                    parenteliment.removeChild(childelem)
+                    axios.delete(`https://crudcrud.com/api/6e0f85634ad440ae9660874b30c076ef/appointmentData/${obj._id}`)
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                }
+                const parenteliment=document.getElementById("listofitems3")
+                const childelem = document.createElement("li")
+                childelem.textContent = obj.price + "-" + obj.dish + "-" + obj.table
+                childelem.appendChild(deletebutton)
+                parenteliment.appendChild(childelem)
+            }
         }
-
     </script>
 </body>
 </html>
