@@ -92,7 +92,11 @@
                 document.getElementById('usernameInputTag').value=obj.name
                 document.getElementById('emailInputTag').value=obj.email
                 document.getElementById('phonenumberInputTag').value=obj.phonenumber
-                
+                axios.put(`https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData/${obj._id}`)
+                    .catch((error) => {
+                        console.log(error)
+                    })
+
             }
             childelem.appendChild(deletebutton)
             childelem.appendChild(editbutton)
