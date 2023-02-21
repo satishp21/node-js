@@ -35,7 +35,7 @@
                 phonenumber
             }
             //for backend activity
-            axios.post("https://crudcrud.com/api/abb5a976085442c09c8a26b3fc381cd7/appointmentdata", obj)
+            axios.post("https://crudcrud.com/api/d1589bd475b7496baabdfe3c51f80896/appointmentdata", obj)
             .then((response) => {
                 console.log(response)
             })
@@ -51,11 +51,11 @@
             }
             data.push(obj);
 
-            localStorage.setItem("userList", JSON.stringify(data))   
-            //showuseronscreen();
+            //localStorage.setItem("userList", JSON.stringify(data))   
+            showuseronscreen();
         }
         window.addEventListener("DOMContentLoaded", () =>{
-            axios.get("https://crudcrud.com/api/abb5a976085442c09c8a26b3fc381cd7/appointmentdata")
+            axios.get("https://crudcrud.com/api/d1589bd475b7496baabdfe3c51f80896/appointmentdata")
                 .then((response) =>{
                     console.log(response)
                     for (var i=0; i< response.data.length; i++){
@@ -107,7 +107,7 @@
             })
         }
 
-        //showuseronscreen();
+        showuseronscreen();
 
     </script>
 </body>
