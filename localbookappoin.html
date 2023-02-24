@@ -1,0 +1,82 @@
+<!-- book appointment form and data stored in local storage and can be called from local storage on refresh of page  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="saveToLocalStorage(event)" >
+        <label>User Name</label>
+        <input type ="text" name="username" id ="usernameTag" required>
+        <label>Email ID</label>
+        <input type ="email" name="email" id="emailIDTag" required>
+        <label>Phonenumber</label>
+        <input type ="number" name="phonenumber" id="phonenumberTag" required>
+        <input type="submit" name ="submit" value="Submit">
+        <ol id ="listofitems">
+        </ol>
+    </form>
+
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const username=event.target.username.value;
+            const email=event.target.email.value;
+            const phonenumber=event.target.phonenumber.value;
+        
+            const obj={
+                username,
+                email,
+                phonenumber
+            }
+        
+        localStorage.setItem(obj.email,JSON.stringify(obj))
+        showuseronscreen(obj)
+        }
+        //changes
+        window.addEventListener("DOMContentLoaded", () => {
+            const localStorageobj = localStorage;
+            const localStoragekeys = Object.keys(localStorageobj)
+        
+            for (var i = 0; i<localStoragekeys.length; i++){
+                const key = localStoragekeys[i]
+                const userdeatailsstring = localStorageobj[key];
+                const userdeatailsObj = JSON.parse(userdeatailsstring)
+                showuseronscreen(userdeatailsObj)
+            }
+        })
+        
+        function showuseronscreen(obj){
+           const parenteliment=document.getElementById("listofitems") 
+           const childelem=document.createElement("li")
+           childelem.textContent=obj.username+"-"+obj.email+"-"+obj.phonenumber
+        
+            const deletebutton=document.createElement("input")
+            deletebutton.type="button"
+            deletebutton.value="Delete"
+            deletebutton.onclick = () => {
+                localStorage.removeItem(obj.email)
+                parenteliment.removeChild(childelem)
+            }
+        
+            const editbutton=document.createElement("input")
+            editbutton.type="button"
+            editbutton.value="Edit"
+            editbutton.onclick = () => {
+                localStorage.removeItem(obj.email)
+                parenteliment.removeChild(childelem)
+                document.getElementById('usernameTag').value=obj.username
+                document.getElementById('emailIDTag').value=obj.email
+                document.getElementById('phonenumberTag').value=obj.phonenumber
+            }
+            childelem.appendChild(deletebutton)
+            childelem.appendChild(editbutton)
+            parenteliment.appendChild(childelem)
+        
+        }
+    </script>
+</body>
+</html>
