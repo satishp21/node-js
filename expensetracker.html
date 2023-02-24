@@ -1,0 +1,87 @@
+<!-- expense traker which stores data in local storage and data called on refresh fromlocal storage -->
+<!DOCTYPE html >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="saveToLocalStorage(event)" >
+        <label>Expense amount</label>
+        <input type ="number" name="expenseamount" id ="expenseInputTag" required>
+        <label>Description</label>
+        <input type ="text" name="Description" id="DescriptionInputTag" required>
+        <label>Category</label>
+        <select name="Catagory" id ="CatagoryInputTag" >
+            <option value="Fuel">Fuel</option>
+            <option value="Food">Food</option>
+            <option value="Electricity">Electricity</option>
+            <option value="movie">movie</option>
+        </select>
+        <input type="submit" name ="submit" value="Add expense">
+        <ol id ="listofitems">
+        </ol>
+    </form>
+
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const amount=event.target.expenseamount.value;
+            const Description=event.target.Description.value;
+            const Catagory=event.target.Catagory.value;
+        
+            const obj={
+                amount,
+                Description,
+                Catagory
+            }
+        
+        localStorage.setItem(obj.Description,JSON.stringify(obj))
+        showuseronscreen(obj)
+        }
+        //changes
+        window.addEventListener("DOMContentLoaded", () => {
+            const localStorageobj = localStorage;
+            const localStoragekeys = Object.keys(localStorageobj)
+        
+            for (var i = 0; i<localStoragekeys.length; i++){
+                const key = localStoragekeys[i]
+                const userdeatailsstring = localStorageobj[key];
+                const userdeatailsObj = JSON.parse(userdeatailsstring)
+                showuseronscreen(userdeatailsObj)
+            }
+        })
+        
+        function showuseronscreen(obj){
+           const parenteliment=document.getElementById("listofitems") 
+           const childelem=document.createElement("li")
+           childelem.textContent=obj.amount+"-"+obj.Description+"-"+obj.Catagory
+        
+            const deletebutton=document.createElement("input")
+            deletebutton.type="button"
+            deletebutton.value="Delete"
+            deletebutton.onclick = () => {
+                localStorage.removeItem(obj.Description)
+                parenteliment.removeChild(childelem)
+            }
+        
+            const editbutton=document.createElement("input")
+            editbutton.type="button"
+            editbutton.value="Edit"
+            editbutton.onclick = () => {
+                localStorage.removeItem(obj.Description)
+                parenteliment.removeChild(childelem)
+                document.getElementById('expenseInputTag').value=obj.amount
+                document.getElementById('DescriptionInputTag').value=obj.Description
+                document.getElementById('CatagoryInputTag').value=obj.Catagory
+            }
+            childelem.appendChild(deletebutton)
+            childelem.appendChild(editbutton)
+            parenteliment.appendChild(childelem)
+        
+        }
+    </script>
+</body>
+</html>
