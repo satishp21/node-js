@@ -32,7 +32,7 @@
                 phonenumber
             }
 
-            axios.post("https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData",obj)
+            axios.post("https://crudcrud.com/api/8aa507e5d23748e987fcd1a67f4f62ad/appointmentData",obj)
                 .then((response) => {
                     showuseronscreen(response.data)
                     console.log(response)
@@ -40,13 +40,9 @@
                 .catch((error) => {
                     console.log(error)
                 })
-      
-        //storing details of multiple users
-        //localStorage.setItem(obj.email,JSON.stringify(obj)) comment out to use backebd server crud drud to call data insteart ogf local storage
-        //showuseronscreen(obj)
         }
         window.addEventListener("DOMContentLoaded", () => {
-            axios.get("https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData")
+            axios.get("https://crudcrud.com/api/8aa507e5d23748e987fcd1a67f4f62ad/appointmentData")
                 .then((response) =>{
                     console.log(response)
                     for(var i=0; i< response.data.length; i++){
@@ -56,19 +52,12 @@
                 .catch((err) => {
                     console.log(err)
                 })
-
-            //const localStorageobj = localStorage;
-            //const localStoragekeys = Object.keys(localStorageobj)
         })
         
         function showuseronscreen(obj){
            const parenteliment=document.getElementById("listofitems")
            const childelem = document.createElement("li")
            childelem.textContent = obj.name + "-" + obj.email + "-" + obj.phonenumber
-           
-           //parenteliment.innerHTML = parenteliment.innerHTML + `<li>${obj.name} - ${obj.email} - ${obj.phonenumber}</li>`
-
-        // creating delete button which deletes data from screen as well as local storage.  
 
             const deletebutton=document.createElement("input")
             deletebutton.type="button"
@@ -76,7 +65,7 @@
             deletebutton.onclick = () => {
                 localStorage.removeItem(obj.email)
                 parenteliment.removeChild(childelem)
-                axios.delete(`https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData/${obj._id}`)
+                axios.delete(`https://crudcrud.com/api/8aa507e5d23748e987fcd1a67f4f62ad/appointmentData/${obj._id}`)
                     .catch((error) => {
                         console.log(error)
                     })
@@ -92,7 +81,7 @@
                 document.getElementById('usernameInputTag').value=obj.name
                 document.getElementById('emailInputTag').value=obj.email
                 document.getElementById('phonenumberInputTag').value=obj.phonenumber
-                axios.delete(`https://crudcrud.com/api/6b49309760414a30b650cc1a1614612f/appointmentData/${obj._id}`)
+                axios.delete(`https://crudcrud.com/api/8aa507e5d23748e987fcd1a67f4f62ad/appointmentData/${obj._id}`)
                     .catch((error) => {
                         console.log(error)
                     })
