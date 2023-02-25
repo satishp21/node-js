@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+          background-image: url(https://ceblog.s3.amazonaws.com/wp-content/uploads/2012/02/beautiful-restaurant-websites.jpg);
+          background-repeat: no-repeat;
+          background-attachment: fixed; 
+          background-size: 100% 100%;
+        }
+        </style>
+</head>
+<body>
+    <form onsubmit="saveTocrudcrud(event)">
+        <label>Choose Price</label>
+        <input type ="number" name="price" id ="priceTag" required>
+        <label>Choose Dish</label>
+        <input type ="text" name="dish" id="dishTag" required>
+        <label>Choose a Table</label>
+        <select name ="table" id="tableID" >
+            <option value="Table1" id ="table1">Table 1</option>
+            <option value="Table2" id ="table2">Table 2</option>
+            <option value="Table3" id ="table3">Table 3</option>
+        </select>
+        <input type="submit" name ="submit" value="Add to bill">
+        <h1>Orders</h1>
+        <h2>Table 1</h2>
+        <ul id ="listofitems1">
+        </ul>
+        <h2>Table 2</h2>
+        <ul id ="listofitems2">
+        </ul>
+        <h2>Table 3</h2>
+        <ul id ="listofitems3">
+        </ul>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+    <script>
+        async function saveTocrudcrud(event){
+            event.preventDefault();
+            const price=event.target.price.value;
+            const dish=event.target.dish.value;
+            const table=event.target.table.value;
+            const obj={
+                price,
+                dish,
+                table
+            }
+            const response = await axios.post("https://crudcrud.com/api/8db1a97d9f4845cdae4cf12fca69bd5a/appointmentData",obj)
+            try{
+                showuseronscreen(response.obj)
+            }catch(err){
+                document.body.innerHTML = document.body.innerHTML + "something went wrong"
+            }
+            
+        }
+        // this DOMcotentloades takes data from crud crud after html is loaded on a page refresh
+        window.addEventListener("DOMContentLoaded", async function () { 
+            const response = await axios.get("https://crudcrud.com/api/8db1a97d9f4845cdae4cf12fca69bd5a/appointmentData")
+            try{
+                for(var i=0; i< response.data.length; i++){
+                    showuseronscreen(response.data[i])
+                }
+            }catch(err){console.log(err)}
+        })
+        async function deleteuser(objdel){
+            try{
+                const response = await axios.delete(`https://crudcrud.com/api/8db1a97d9f4845cdae4cf12fca69bd5a/appointmentData/${obj._id}`)
+                removefromscreen(objdel)
+            }catch(err) {console.log(err)}
+        }
+        function removefromscreen(objdel){
+            const childtobedeleted= document.getElementById(objdel)
+            if (childtobedeleted){
+                childtobedeleted.remove()
+            }
+        }
+        function showuseronscreen(obj){
+            const childelement = `<li id -${obj._id}> ${obj.price} - ${obj.dish} - ${obj.table}
+            <button onclick = deleteuser(${obj._id})>Delete order</button></li>`
+            if (obj.table == document.getElementById('table1').value){
+                var parenteliment = document.getElementById("listofitems1")
+            }
+            else if (obj.table == document.getElementById('table2').value){
+                var parenteliment = document.getElementById("listofitems2")
+            }
+            else {
+                var parenteliment = document.getElementById("listofitems3")
+            }
+            parenteliment.innerHTML = parenteliment.innerHTML + childelement
+            async function deleteuser(objdel){
+                try{
+                    const response = await axios.delete(`https://crudcrud.com/api/8db1a97d9f4845cdae4cf12fca69bd5a/appointmentData/${obj._id}`)
+                    removefromscreen(objdel)
+                }catch(err) {console.log(err)}
+            }
+            function removefromscreen(objdel){
+                const childtobedeleted= document.getElementById(objdel)
+                if (childtobedeleted){
+                    childtobedeleted.remove()
+                }
+            }
+        }
+    </script>
+</body>
+</html>
