@@ -36,6 +36,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
     <script>
         async function saveTocrudcrud(event){
+            try{
             event.preventDefault();
             const price=event.target.price.value;
             const dish=event.target.dish.value;
@@ -45,22 +46,22 @@
                 dish,
                 table
             }
-            let response1 = await axios.post("https://crudcrud.com/api/20893f84ca584ea49435db0abdcc6654/appointmentData",obj)
-            try{
-                showuseronscreen(response1.data)
+            let response1 = await axios.post("https://crudcrud.com/api/dae906d52cc5479198ee4eb2efc3ffb7/appointmentData",obj)
+            showuseronscreen(response1.data)
             }catch(err){
                 document.body.innerHTML = document.body.innerHTML + "something went wrong"
             }
         }
         window.addEventListener("DOMContentLoaded", async function (){
-            let response = await axios.get("https://crudcrud.com/api/20893f84ca584ea49435db0abdcc6654/appointmentData")
             try{
-                for(var i=0; i< response.data.length; i++){
+            let response = await axios.get("https://crudcrud.com/api/dae906d52cc5479198ee4eb2efc3ffb7/appointmentData")
+                for(let i=0; i< response.data.length; i++){
                     showuseronscreen(response.data[i])
                 }
             }catch(err){console.log(err)}
         })
         function showuseronscreen(obj){
+            try{
             const childelem = document.createElement("li")
             childelem.textContent = obj.price + "-" + obj.dish + "-" + obj.table
             const deletebutton=document.createElement("input")
@@ -73,10 +74,7 @@
                 parenteliment1.appendChild(childelem)
                 deletebutton.onclick = async () => {
                     parenteliment1.removeChild(childelem)
-                    await axios.delete(`https://crudcrud.com/api/20893f84ca584ea49435db0abdcc6654/appointmentData/${obj._id}`)
-                        .catch((error) => {
-                            console.log(error)
-                        })
+                    axios.delete(`https://crudcrud.com/api/dae906d52cc5479198ee4eb2efc3ffb7/appointmentData/${obj._id}`)
                 }
             }
             else if (obj.table=='Table2'){
@@ -84,10 +82,7 @@
                 parenteliment2.appendChild(childelem)
                 deletebutton.onclick = () => {
                     parenteliment2.removeChild(childelem)
-                    axios.delete(`https://crudcrud.com/api/20893f84ca584ea49435db0abdcc6654/appointmentData/${obj._id}`)
-                        .catch((error) => {
-                            console.log(error)
-                        })
+                    axios.delete(`https://crudcrud.com/api/dae906d52cc5479198ee4eb2efc3ffb7/appointmentData/${obj._id}`)
                 }
             }
             else if (obj.table=='Table3'){
@@ -95,12 +90,10 @@
                 parenteliment3.appendChild(childelem)
                 deletebutton.onclick = () => {
                     parenteliment3.removeChild(childelem)
-                    axios.delete(`https://crudcrud.com/api/20893f84ca584ea49435db0abdcc6654/appointmentData/${obj._id}`)
-                        .catch((error) => {
-                            console.log(error)
-                        })
+                    axios.delete(`https://crudcrud.com/api/dae906d52cc5479198ee4eb2efc3ffb7/appointmentData/${obj._id}`)
                 }
             }
+            }catch(err){console.log(err)}
         }
     </script>
 </body>
